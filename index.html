@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
   <header class="navbar">
     <nav class="container nav-inner">
       <a href="#home" class="logo">AS<span class="accent">.</span></a>
@@ -29,6 +30,9 @@
 
   <main>
     <section id="home" class="hero">
+      <canvas id="particles" aria-hidden="true"></canvas>
+      <div class="hero-orb orb-1" aria-hidden="true"></div>
+      <div class="hero-orb orb-2" aria-hidden="true"></div>
       <div class="container hero-inner">
         <p class="hero-greeting reveal">Hi there, I'm</p>
         <h1 class="hero-name reveal">Anupam Saxena</h1>
@@ -55,6 +59,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
           </a>
         </div>
+        <a class="email-chip reveal" href="mailto:saxenaanupam326@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          saxenaanupam326@gmail.com
+        </a>
       </div>
       <a href="#about" class="scroll-down" aria-label="Scroll down">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
@@ -92,8 +100,8 @@
                 <span class="stat-label">Technologies Used</span>
               </div>
               <div class="stat">
-                <span class="stat-num">500+</span>
-                <span class="stat-label">Hours of Coding</span>
+                <span class="stat-num">2+</span>
+                <span class="stat-label">Years of Coding</span>
               </div>
             </div>
             <a href="Anupam-Saxena-Resume.pdf" class="btn btn-primary download-cv" download>Download Resume</a>
@@ -206,10 +214,17 @@
       <div class="container contact-inner">
         <h2 class="section-title reveal">Get In <span class="accent">Touch</span></h2>
         <p class="contact-desc reveal">
-          I'm currently open to freelance work and full-time opportunities.
+          I'm currently open to internships, freelance work and full-time opportunities.
           Whether you have a question or just want to say hi — my inbox is always open!
         </p>
-        <form class="contact-form reveal" action="mailto:saxenaanupam326@gmail.com" method="POST" enctype="text/plain">
+        <a class="contact-email reveal" href="mailto:saxenaanupam326@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          saxenaanupam326@gmail.com
+        </a>
+        <form class="contact-form reveal" action="https://formsubmit.co/saxenaanupam326@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New message from your portfolio!" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
           <div class="form-row">
             <input type="text" name="name" placeholder="Your Name" required />
             <input type="email" name="email" placeholder="Your Email" required />
