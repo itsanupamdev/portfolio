@@ -701,6 +701,18 @@ body {
   transform: scaleX(1);
 }
 
+.zoom-section {
+  will-change: transform, opacity, filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoom-section {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
+
 @media (max-width: 850px) {
   .about-grid {
     grid-template-columns: 1fr;

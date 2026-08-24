@@ -219,6 +219,41 @@ if (!reduceMotion && canvas) {
   heroObserver.observe(heroSection);
 }
 
+const zoomSections = document.querySelectorAll(".zoom-section");
+let zoomTicking = false;
+
+function updateZoom() {
+  const vh = window.innerHeight;
+  zoomSections.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh * 0.55)));
+    if (progress >= 0.999) {
+      el.style.transform = "";
+      el.style.opacity = "";
+      el.style.filter = "";
+      return;
+    }
+    const scale = 0.88 + progress * 0.12;
+    el.style.transform = `scale(${scale})`;
+    el.style.opacity = (0.25 + progress * 0.75).toFixed(3);
+    el.style.filter = `blur(${((1 - progress) * 5).toFixed(2)}px)`;
+  });
+  zoomTicking = false;
+}
+
+function requestZoom() {
+  if (!zoomTicking) {
+    zoomTicking = true;
+    requestAnimationFrame(updateZoom);
+  }
+}
+
+if (!reduceMotion) {
+  window.addEventListener("scroll", requestZoom, { passive: true });
+  window.addEventListener("resize", requestZoom);
+  updateZoom();
+}
+
 if (window.matchMedia("(hover: hover)").matches) {
   document.querySelectorAll(".project-card").forEach((card) => {
     card.addEventListener("mousemove", (e) => {
