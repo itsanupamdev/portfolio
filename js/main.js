@@ -45,13 +45,25 @@ function toggleOnScroll() {
 }
 
 const progressBar = document.getElementById("progressBar");
+const heroInner = document.querySelector(".hero-inner");
+const orb1 = document.querySelector(".orb-1");
+const orb2 = document.querySelector(".orb-2");
 
 window.addEventListener("scroll", () => {
   toggleOnScroll();
   highlightNav();
   const max = document.documentElement.scrollHeight - window.innerHeight;
   progressBar.style.width = (window.scrollY / max) * 100 + "%";
-});
+  if (!reduceMotion && window.scrollY < window.innerHeight) {
+    const y = window.scrollY;
+    heroInner.style.transform = `translateY(${y * 0.22}px)`;
+    heroInner.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.85));
+    if (orb1 && orb2) {
+      orb1.style.translate = `0 ${y * 0.14}px`;
+      orb2.style.translate = `0 ${-y * 0.1}px`;
+    }
+  }
+}, { passive: true });
 
 backToTop.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -69,7 +81,16 @@ const observer = new IntersectionObserver(
   { threshold: 0.12 }
 );
 
-document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+document
+  .querySelectorAll(".skills-grid, .projects-grid, .stats, .socials")
+  .forEach((grid) => {
+    grid.querySelectorAll(".reveal, .reveal-scale").forEach((el, i) => {
+      el.style.transitionDelay = i * 110 + "ms";
+    });
+  });
+
+document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale")
+  .forEach((el) => observer.observe(el));
 
 const roles = [
   "Full Stack Developer",
