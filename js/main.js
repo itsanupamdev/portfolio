@@ -366,3 +366,63 @@ document.querySelectorAll(".btn").forEach((btn) => {
     setTimeout(() => ripple.remove(), 650);
   });
 });
+
+const fxCanvas = document.getElementById("fxCanvas");
+const fxCtx = fxCanvas.getContext("2d");
+const FX_COLORS = ["#64ffda", "#7c6cff", "#4cc9f0", "#d6deeb"];
+let fxParticles = [];
+let fxRunning = false;
+
+function resizeFx() {
+  fxCanvas.width = window.innerWidth;
+  fxCanvas.height = window.innerHeight;
+}
+
+window.addEventListener("mousedown", (e) => {
+  if (reduceMotion) return;
+  const count = 12 + Math.floor(Math.random() * 5);
+  for (let i = 0; i < count; i++) {
+    const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+    const speed = 1.8 + Math.random() * 2.4;
+    fxParticles.push({
+      x: e.clientX,
+      y: e.clientY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 1,
+      size: 1.5 + Math.random() * 1.8,
+      life: 1,
+      decay: 0.02 + Math.random() * 0.02,
+      color: FX_COLORS[Math.floor(Math.random() * FX_COLORS.length)]
+    });
+  }
+  if (!fxRunning) {
+    fxRunning = true;
+    requestAnimationFrame(fxLoop);
+  }
+});
+
+function fxLoop() {
+  fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+  fxParticles = fxParticles.filter((p) => p.life > 0);
+  for (const p of fxParticles) {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.06;
+    p.vx *= 0.985;
+    p.life -= p.decay;
+    fxCtx.globalAlpha = Math.max(0, p.life);
+    fxCtx.beginPath();
+    fxCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+    fxCtx.fillStyle = p.color;
+    fxCtx.fill();
+  }
+  fxCtx.globalAlpha = 1;
+  if (fxParticles.length) {
+    requestAnimationFrame(fxLoop);
+  } else {
+    fxRunning = false;
+  }
+}
+
+resizeFx();
+window.addEventListener("resize", resizeFx);
