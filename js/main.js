@@ -255,26 +255,7 @@ function updateZoom() {
     el.style.opacity = (0.25 + progress * 0.75).toFixed(3);
     el.style.filter = `blur(${((1 - progress) * 5).toFixed(2)}px)`;
   });
-  updateStack();
   zoomTicking = false;
-}
-
-const stackCards = [...document.querySelectorAll(".projects-stack .project-card")];
-
-function updateStack() {
-  const vh = window.innerHeight;
-  stackCards.forEach((card, i) => {
-    if (i === stackCards.length - 1) return;
-    const nextTop = stackCards[i + 1].getBoundingClientRect().top;
-    const p = Math.min(1, Math.max(0, (vh * 0.95 - nextTop) / (vh * 0.5)));
-    if (p <= 0) {
-      card.style.transform = "";
-      card.style.filter = "";
-      return;
-    }
-    card.style.transform = `scale(${(1 - p * 0.07).toFixed(4)}) translateY(${(-p * 14).toFixed(1)}px)`;
-    card.style.filter = `brightness(${(1 - p * 0.35).toFixed(3)})`;
-  });
 }
 
 function requestZoom() {
@@ -429,3 +410,100 @@ function fxLoop() {
 
 resizeFx();
 window.addEventListener("resize", resizeFx);
+
+const PROJECTS = [
+  {
+    num: "01",
+    title: "Project One",
+    desc: "A full-stack e-commerce platform with cart, payments via Stripe and an admin dashboard. Built to handle real checkout flows end to end.",
+    tags: ["React", "Node.js", "Stripe"],
+    github: "https://github.com/itsanupamdev/project-one",
+    live: "#",
+    variant: "v1"
+  },
+  {
+    num: "02",
+    title: "Project Two",
+    desc: "Real-time chat application with rooms, typing indicators and message history. Instant updates over websockets with a clean, responsive UI.",
+    tags: ["Socket.io", "Express", "MongoDB"],
+    github: "https://github.com/itsanupamdev/project-two",
+    live: "#",
+    variant: "v2"
+  },
+  {
+    num: "03",
+    title: "Project Three",
+    desc: "Weather dashboard fetching live data with geolocation-based city detection and graceful error handling for invalid inputs and API failures.",
+    tags: ["JavaScript", "CSS", "REST API"],
+    github: "https://github.com/itsanupamdev/project-three",
+    live: "#",
+    variant: "v3"
+  }
+];
+
+const projectModal = document.getElementById("projectModal");
+const modalArt = document.getElementById("modalArt");
+const modalNum = document.getElementById("modalNum");
+const modalTitle = document.getElementById("modalTitle");
+const modalDesc = document.getElementById("modalDesc");
+const modalTags = document.getElementById("modalTags");
+const modalLive = document.getElementById("modalLive");
+const modalGithub = document.getElementById("modalGithub");
+const modalCount = document.getElementById("modalCount");
+let currentProject = 0;
+
+function renderModal(i) {
+  const p = PROJECTS[i];
+  modalArt.className = "project-visual modal-art " + p.variant;
+  modalNum.textContent = p.num;
+  modalTitle.textContent = p.title;
+  modalDesc.textContent = p.desc;
+  modalTags.innerHTML = p.tags.map((t) => "<li>" + t + "</li>").join("");
+  modalLive.href = p.live;
+  modalGithub.href = p.github;
+  modalCount.textContent = i + 1 + " / " + PROJECTS.length;
+}
+
+function openModal(i) {
+  currentProject = i;
+  renderModal(i);
+  projectModal.classList.add("open");
+  projectModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeModal() {
+  projectModal.classList.remove("open");
+  projectModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+function switchProject(dir) {
+  const info = document.getElementById("modalInfo");
+  const art = modalArt;
+  [info, art].forEach((el) => (el.style.opacity = "0"));
+  setTimeout(() => {
+    currentProject = (currentProject + dir + PROJECTS.length) % PROJECTS.length;
+    renderModal(currentProject);
+    [info, art].forEach((el) => (el.style.opacity = "1"));
+  }, 180);
+}
+
+document.querySelectorAll(".projects-grid .project-card").forEach((card) => {
+  card.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
+    openModal(parseInt(card.dataset.index, 10));
+  });
+});
+
+document.getElementById("modalClose").addEventListener("click", closeModal);
+document.getElementById("modalBackdrop").addEventListener("click", closeModal);
+document.getElementById("modalPrev").addEventListener("click", () => switchProject(-1));
+document.getElementById("modalNext").addEventListener("click", () => switchProject(1));
+
+window.addEventListener("keydown", (e) => {
+  if (!projectModal.classList.contains("open")) return;
+  if (e.key === "Escape") closeModal();
+  if (e.key === "ArrowLeft") switchProject(-1);
+  if (e.key === "ArrowRight") switchProject(1);
+});
