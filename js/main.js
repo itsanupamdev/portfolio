@@ -353,8 +353,9 @@ document.querySelectorAll(".btn").forEach((btn) => {
 
 const fxCanvas = document.getElementById("fxCanvas");
 const fxCtx = fxCanvas.getContext("2d");
-const FX_COLORS = ["#64ffda", "#7c6cff", "#4cc9f0", "#d6deeb"];
+const FX_COLORS = ["#64ffda", "#7c6cff", "#4cc9f0", "#d6deeb", "#ffffff"];
 let fxParticles = [];
+let fxBursts = [];
 let fxRunning = false;
 
 function resizeFx() {
@@ -362,31 +363,55 @@ function resizeFx() {
   fxCanvas.height = window.innerHeight;
 }
 
-window.addEventListener("mousedown", (e) => {
-  if (reduceMotion) return;
-  const count = 12 + Math.floor(Math.random() * 5);
-  for (let i = 0; i < count; i++) {
-    const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
-    const speed = 1.8 + Math.random() * 2.4;
-    fxParticles.push({
-      x: e.clientX,
-      y: e.clientY,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed - 1,
-      size: 1.5 + Math.random() * 1.8,
-      life: 1,
-      decay: 0.02 + Math.random() * 0.02,
-      color: FX_COLORS[Math.floor(Math.random() * FX_COLORS.length)]
-    });
-  }
+window.addEventListener(
+  "pointerdown",
+  (e) => {
+    if (reduceMotion) return;
+    const x = e.clientX;
+    const y = e.clientY;
+    const count = 16 + Math.floor(Math.random() * 6);
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+      const speed = 2 + Math.random() * 2.8;
+      fxParticles.push({
+        x,
+        y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 1,
+        size: 1.8 + Math.random() * 1.8,
+        life: 1,
+        decay: 0.016 + Math.random() * 0.02,
+        color: FX_COLORS[Math.floor(Math.random() * FX_COLORS.length)]
+      });
+    }
+    fxBursts.push({ x, y, radius: 2, life: 1 });
+    for (let k = 0; k < 3; k++) {
+      fxParticles.push({
+        x,
+        y,
+        vx: 0,
+        vy: 0,
+        size: 3.2,
+        life: 1,
+        decay: 0.06,
+        color: "#ffffff"
+      });
+    }
+    startFx();
+  },
+  true
+);
+
+function startFx() {
   if (!fxRunning) {
     fxRunning = true;
     requestAnimationFrame(fxLoop);
   }
-});
+}
 
 function fxLoop() {
   fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+
   fxParticles = fxParticles.filter((p) => p.life > 0);
   for (const p of fxParticles) {
     p.x += p.vx;
@@ -396,15 +421,30 @@ function fxLoop() {
     p.life -= p.decay;
     fxCtx.globalAlpha = Math.max(0, p.life);
     fxCtx.beginPath();
-    fxCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+    fxCtx.arc(p.x, p.y, Math.max(0.3, p.size * p.life), 0, Math.PI * 2);
     fxCtx.fillStyle = p.color;
     fxCtx.fill();
   }
+
+  fxBursts = fxBursts.filter((b) => b.life > 0);
+  for (const b of fxBursts) {
+    b.radius += 2.6;
+    b.life -= 0.06;
+    fxCtx.globalAlpha = Math.max(0, b.life) * 0.5;
+    fxCtx.beginPath();
+    fxCtx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+    fxCtx.strokeStyle = "rgba(100,255,218,1)";
+    fxCtx.lineWidth = 1.2;
+    fxCtx.stroke();
+  }
+
   fxCtx.globalAlpha = 1;
-  if (fxParticles.length) {
+
+  if (fxParticles.length || fxBursts.length) {
     requestAnimationFrame(fxLoop);
   } else {
     fxRunning = false;
+    fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
   }
 }
 
