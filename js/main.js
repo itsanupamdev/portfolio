@@ -4,6 +4,7 @@ const links = document.querySelectorAll(".nav-link");
 const backToTop = document.getElementById("backToTop");
 const typed = document.getElementById("typed");
 const yearEl = document.getElementById("year");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 hamburger.addEventListener("click", () => {
   const isOpen = navLinks.classList.toggle("open");
@@ -82,12 +83,26 @@ const observer = new IntersectionObserver(
 );
 
 document
-  .querySelectorAll(".skills-grid, .projects-grid, .stats, .socials")
+  .querySelectorAll(".skills-grid, .projects-stack, .stats, .socials")
   .forEach((grid) => {
     grid.querySelectorAll(".reveal, .reveal-scale").forEach((el, i) => {
       el.style.transitionDelay = i * 110 + "ms";
     });
   });
+
+const heroName = document.querySelector(".hero-name");
+
+if (heroName && !reduceMotion) {
+  const text = heroName.textContent;
+  heroName.textContent = "";
+  [...text].forEach((ch, i) => {
+    const span = document.createElement("span");
+    span.className = "char";
+    span.style.setProperty("--i", i);
+    span.textContent = ch === " " ? "\u00A0" : ch;
+    heroName.appendChild(span);
+  });
+}
 
 document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale")
   .forEach((el) => observer.observe(el));
@@ -153,7 +168,6 @@ statNums.forEach((el) => counterObserver.observe(el));
 
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let particles = [];
 let cw = 0;
 let ch = 0;
@@ -238,7 +252,26 @@ function updateZoom() {
     el.style.opacity = (0.25 + progress * 0.75).toFixed(3);
     el.style.filter = `blur(${((1 - progress) * 5).toFixed(2)}px)`;
   });
+  updateStack();
   zoomTicking = false;
+}
+
+const stackCards = [...document.querySelectorAll(".projects-stack .project-card")];
+
+function updateStack() {
+  const vh = window.innerHeight;
+  stackCards.forEach((card, i) => {
+    if (i === stackCards.length - 1) return;
+    const nextTop = stackCards[i + 1].getBoundingClientRect().top;
+    const p = Math.min(1, Math.max(0, (vh * 0.95 - nextTop) / (vh * 0.5)));
+    if (p <= 0) {
+      card.style.transform = "";
+      card.style.filter = "";
+      return;
+    }
+    card.style.transform = `scale(${(1 - p * 0.07).toFixed(4)}) translateY(${(-p * 14).toFixed(1)}px)`;
+    card.style.filter = `brightness(${(1 - p * 0.35).toFixed(3)})`;
+  });
 }
 
 function requestZoom() {
@@ -254,16 +287,82 @@ if (!reduceMotion) {
   updateZoom();
 }
 
-if (window.matchMedia("(hover: hover)").matches) {
-  document.querySelectorAll(".project-card").forEach((card) => {
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`;
+const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const cursorDot = document.getElementById("cursorDot");
+const cursorRing = document.getElementById("cursorRing");
+
+if (canHover) {
+  let mx = window.innerWidth / 2;
+  let my = window.innerHeight / 2;
+  let ringX = mx;
+  let ringY = my;
+  let shown = false;
+
+  window.addEventListener("mousemove", (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    cursorDot.style.left = mx + "px";
+    cursorDot.style.top = my + "px";
+    if (!shown) {
+      shown = true;
+      cursorDot.style.opacity = 1;
+      cursorRing.style.opacity = 1;
+    }
+    const target = e.target.closest("a, button, .skill-card, .project-card");
+    cursorRing.classList.toggle("hovering", !!target);
+  });
+
+  document.documentElement.addEventListener("mouseleave", () => {
+    cursorDot.style.opacity = 0;
+    cursorRing.style.opacity = 0;
+  });
+
+  document.documentElement.addEventListener("mouseenter", () => {
+    if (shown) {
+      cursorDot.style.opacity = 1;
+      cursorRing.style.opacity = 1;
+    }
+  });
+
+  (function ringLoop() {
+    ringX += (mx - ringX) * 0.16;
+    ringY += (my - ringY) * 0.16;
+    cursorRing.style.left = ringX + "px";
+    cursorRing.style.top = ringY + "px";
+    requestAnimationFrame(ringLoop);
+  })();
+
+  document.querySelectorAll(".hero-actions .btn, .back-to-top").forEach((el) => {
+    el.addEventListener("mousemove", (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.transform =
+        `translate(${((e.clientX - r.left - r.width / 2) * 0.25).toFixed(1)}px, ` +
+        `${((e.clientY - r.top - r.height / 2) * 0.25).toFixed(1)}px)`;
     });
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "";
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = "";
     });
   });
 }
+
+document.querySelectorAll(".skill-card, .project-card").forEach((card) => {
+  card.addEventListener("mousemove", (e) => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", e.clientX - r.left + "px");
+    card.style.setProperty("--my", e.clientY - r.top + "px");
+  });
+});
+
+document.querySelectorAll(".btn").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const ripple = document.createElement("span");
+    ripple.className = "ripple";
+    ripple.style.width = ripple.style.height = size + "px";
+    ripple.style.left = e.clientX - rect.left - size / 2 + "px";
+    ripple.style.top = e.clientY - rect.top - size / 2 + "px";
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 650);
+  });
+});
