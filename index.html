@@ -7,7 +7,7 @@
   <title>Anupam Saxena | Web Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -34,13 +34,18 @@
       <div class="hero-orb orb-1" aria-hidden="true"></div>
       <div class="hero-orb orb-2" aria-hidden="true"></div>
       <div class="container hero-inner">
-        <p class="hero-greeting reveal">Hi there, I'm</p>
-        <h1 class="hero-name">Anupam Saxena</h1>
-        <h2 class="hero-role reveal">I'm a <span id="typed" class="accent"></span><span class="cursor">|</span></h2>
-        <p class="hero-desc reveal">
-          I build modern, fast and accessible web applications.
-          Passionate about clean code, great UX and turning ideas into reality.
-        </p>
+        <p class="hero-eyebrow reveal">Full Stack Developer â€” Jaipur, India</p>
+        <h1 class="hero-name" aria-label="Anupam Saxena">
+          <span class="line line-fill">ANUPAM</span>
+          <span class="line line-outline">SAXENA</span>
+        </h1>
+        <div class="hero-sub reveal">
+          <h2 class="hero-role">I'm a <span id="typed" class="accent"></span><span class="cursor">|</span></h2>
+          <p class="hero-desc">
+            I build modern, fast and accessible web applications.
+            Passionate about clean code, great UX and turning ideas into reality.
+          </p>
+        </div>
         <div class="hero-actions reveal">
           <a href="#projects" class="btn btn-primary">View My Work</a>
           <a href="#contact" class="btn btn-outline">Get In Touch</a>
@@ -93,6 +98,7 @@
 
     <section id="about" class="section">
       <div class="container">
+        <p class="eyebrow reveal">01 · Who I Am</p>
         <h2 class="section-title reveal">About <span class="accent">Me</span></h2>
         <div class="about-grid zoom-section">
           <div class="about-photo reveal-left">
@@ -103,14 +109,14 @@
           <div class="about-text reveal-right">
             <p>
               I'm an ambitious full stack web developer based in <strong>Jaipur, India</strong>,
-              at the start of my professional journey — but already shipping real projects
+              at the start of my professional journey â€” but already shipping real projects
               end to end. I work across the stack with JavaScript, crafting clean interfaces
               and solid backends, and I learn new tools fast by actually building with them.
             </p>
             <p>
               Every project I take on teaches me something new, and I document what I learn
               along the way. If you're looking for someone hungry to contribute, quick to
-              pick up your stack and serious about writing quality code — let's talk.
+              pick up your stack and serious about writing quality code â€” let's talk.
             </p>
             <div class="stats">
               <div class="stat">
@@ -134,6 +140,7 @@
 
     <section id="skills" class="section section-alt">
       <div class="container">
+        <p class="eyebrow reveal">02 · Capabilities</p>
         <h2 class="section-title reveal">My <span class="accent">Skills</span></h2>
         <div class="skills-grid zoom-section">
           <div class="skill-card reveal-scale">
@@ -162,10 +169,12 @@
 
     <section id="projects" class="section">
       <div class="container">
+        <p class="eyebrow reveal">03 · Selected Work</p>
         <h2 class="section-title reveal">Featured <span class="accent">Projects</span></h2>
         <div class="projects-stack">
 
           <article class="project-card reveal">
+            <div class="project-visual v1"></div>
             <div class="project-top">
               <span class="project-num">01</span>
               <div class="project-links">
@@ -185,6 +194,7 @@
           </article>
 
           <article class="project-card reveal">
+            <div class="project-visual v2"></div>
             <div class="project-top">
               <span class="project-num">02</span>
               <div class="project-links">
@@ -204,6 +214,7 @@
           </article>
 
           <article class="project-card reveal">
+            <div class="project-visual v3"></div>
             <div class="project-top">
               <span class="project-num">03</span>
               <div class="project-links">
@@ -228,10 +239,11 @@
 
     <section id="contact" class="section section-alt">
       <div class="container contact-inner zoom-section">
+        <p class="eyebrow reveal">04 · Say Hello</p>
         <h2 class="section-title reveal">Get In <span class="accent">Touch</span></h2>
         <p class="contact-desc reveal">
           I'm currently open to internships, freelance work and full-time opportunities.
-          Whether you have a question or just want to say hi — my inbox is always open!
+          Whether you have a question or just want to say hi â€” my inbox is always open!
         </p>
         <a class="contact-email reveal" href="mailto:saxenaanupam326@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
@@ -254,6 +266,7 @@
   </main>
 
   <footer class="footer">
+    <p class="footer-wordmark" aria-hidden="true">ANUPAM SAXENA</p>
     <p>Designed &amp; Built by Anupam Saxena</p>
     <p class="footer-sub">&copy; <span id="year"></span> All rights reserved</p>
   </footer>

@@ -90,17 +90,20 @@ document
     });
   });
 
-const heroName = document.querySelector(".hero-name");
+const heroNameLines = document.querySelectorAll(".hero-name .line");
 
-if (heroName && !reduceMotion) {
-  const text = heroName.textContent;
-  heroName.textContent = "";
-  [...text].forEach((ch, i) => {
-    const span = document.createElement("span");
-    span.className = "char";
-    span.style.setProperty("--i", i);
-    span.textContent = ch === " " ? "\u00A0" : ch;
-    heroName.appendChild(span);
+if (heroNameLines.length && !reduceMotion) {
+  let globalIndex = 0;
+  heroNameLines.forEach((line) => {
+    const text = line.textContent;
+    line.textContent = "";
+    [...text].forEach((ch) => {
+      const span = document.createElement("span");
+      span.className = "char";
+      span.style.setProperty("--i", globalIndex++);
+      span.textContent = ch === " " ? "\u00A0" : ch;
+      line.appendChild(span);
+    });
   });
 }
 
