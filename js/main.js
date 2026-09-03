@@ -454,11 +454,11 @@ window.addEventListener("resize", resizeFx);
 const PROJECTS = [
   {
     num: "01",
-    title: "Excel Analytics Platform",
-    desc: "A comprehensive MERN stack platform for uploading, analyzing, and visualizing Excel data (.xlsx/.xls) with interactive Chart.js graphs, automated statistical insights, and secure JWT authentication.",
-    tags: ["React", "Node.js", "MongoDB", "Chart.js", "Tailwind CSS"],
-    github: "https://github.com/itsanupamdev/Zidio-development-project-1",
-    live: "https://itsanupamdev.github.io/Zidio-development-project-1/",
+    title: "Autonomous Multi-Agent Orchestrator",
+    desc: "A production-grade distributed agentic mesh featuring DAG-based task decomposition, real-time code synthesis, automated AST security audits, virtualized sandbox testing, and an autonomous self-healing feedback loop.",
+    tags: ["Autonomous Agents", "DAG Engine", "Self-Healing", "TypeScript", "Sandboxing"],
+    github: "https://github.com/itsanupamdev/autonomous-agent-orchestrator",
+    live: "https://itsanupamdev.github.io/autonomous-agent-orchestrator/",
     variant: "v1"
   },
   {
