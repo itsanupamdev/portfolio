@@ -458,7 +458,7 @@ const PROJECTS = [
     desc: "A comprehensive MERN stack platform for uploading, analyzing, and visualizing Excel data (.xlsx/.xls) with interactive Chart.js graphs, automated statistical insights, and secure JWT authentication.",
     tags: ["React", "Node.js", "MongoDB", "Chart.js", "Tailwind CSS"],
     github: "https://github.com/itsanupamdev/Zidio-development-project-1",
-    live: "https://github.com/itsanupamdev/Zidio-development-project-1",
+    live: "https://itsanupamdev.github.io/Zidio-development-project-1/",
     variant: "v1"
   },
   {
@@ -467,7 +467,7 @@ const PROJECTS = [
     desc: "A clean, high-performance blogging application built with Next.js, React, and TypeScript. Features responsive design with Tailwind CSS, content authoring, and fast page loads.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/itsanupamdev/-Development-project-2",
-    live: "https://github.com/itsanupamdev/-Development-project-2",
+    live: "https://itsanupamdev.github.io/-Development-project-2/",
     variant: "v2"
   },
   {
