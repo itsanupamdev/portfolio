@@ -642,6 +642,14 @@ body {
     linear-gradient(200deg, #12182c, #0a0e19);
 }
 
+.project-visual.v4::before {
+  background:
+    radial-gradient(90% 110% at 80% 80%, rgba(76, 201, 240, 0.42), transparent 58%),
+    radial-gradient(70% 90% at 20% 20%, rgba(100, 255, 218, 0.38), transparent 55%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 16px),
+    linear-gradient(145deg, #111b33, #090e1b);
+}
+
 .project-card.reveal {
   transition: opacity 0.7s ease, box-shadow var(--transition), border-color var(--transition);
 }

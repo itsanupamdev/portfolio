@@ -454,30 +454,39 @@ window.addEventListener("resize", resizeFx);
 const PROJECTS = [
   {
     num: "01",
-    title: "Project One",
-    desc: "A full-stack e-commerce platform with cart, payments via Stripe and an admin dashboard. Built to handle real checkout flows end to end.",
-    tags: ["React", "Node.js", "Stripe"],
-    github: "https://github.com/itsanupamdev/project-one",
-    live: "#",
+    title: "Excel Analytics Platform",
+    desc: "A comprehensive MERN stack platform for uploading, analyzing, and visualizing Excel data (.xlsx/.xls) with interactive Chart.js graphs, automated statistical insights, and secure JWT authentication.",
+    tags: ["React", "Node.js", "MongoDB", "Chart.js", "Tailwind CSS"],
+    github: "https://github.com/itsanupamdev/Zidio-development-project-1",
+    live: "https://github.com/itsanupamdev/Zidio-development-project-1",
     variant: "v1"
   },
   {
     num: "02",
-    title: "Project Two",
-    desc: "Real-time chat application with rooms, typing indicators and message history. Instant updates over websockets with a clean, responsive UI.",
-    tags: ["Socket.io", "Express", "MongoDB"],
-    github: "https://github.com/itsanupamdev/project-two",
-    live: "#",
+    title: "Modern Blogging Platform",
+    desc: "A clean, high-performance blogging application built with Next.js, React, and TypeScript. Features responsive design with Tailwind CSS, content authoring, and fast page loads.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    github: "https://github.com/itsanupamdev/-Development-project-2",
+    live: "https://github.com/itsanupamdev/-Development-project-2",
     variant: "v2"
   },
   {
     num: "03",
-    title: "Project Three",
-    desc: "Weather dashboard fetching live data with geolocation-based city detection and graceful error handling for invalid inputs and API failures.",
-    tags: ["JavaScript", "CSS", "REST API"],
-    github: "https://github.com/itsanupamdev/project-three",
-    live: "#",
+    title: "Online Learning Platform",
+    desc: "Interactive educational web platform featuring modular course browsing, dynamic topic selection, interactive lesson interfaces, and a fully responsive layout.",
+    tags: ["JavaScript", "HTML5", "CSS3", "GitHub Pages"],
+    github: "https://github.com/itsanupamdev/online-learning-platform",
+    live: "https://itsanupamdev.github.io/online-learning-platform/",
     variant: "v3"
+  },
+  {
+    num: "04",
+    title: "Progressive Web App (PWA)",
+    desc: "A mobile-first Progressive Web Application built with service workers for offline caching, web app manifest for installability, and rapid load times across devices.",
+    tags: ["PWA", "Service Worker", "JavaScript", "HTML5"],
+    github: "https://github.com/itsanupamdev/codtech-task-4-progressive-web-application-pwa-",
+    live: "https://github.com/itsanupamdev/codtech-task-4-progressive-web-application-pwa-",
+    variant: "v4"
   }
 ];
 
@@ -499,9 +508,15 @@ function renderModal(i) {
   modalTitle.textContent = p.title;
   modalDesc.textContent = p.desc;
   modalTags.innerHTML = p.tags.map((t) => "<li>" + t + "</li>").join("");
-  modalLive.href = p.live;
+  modalLive.href = p.live || p.github;
   modalGithub.href = p.github;
   modalCount.textContent = i + 1 + " / " + PROJECTS.length;
+
+  if (p.live && p.live.includes("github.io")) {
+    modalLive.innerHTML = 'Live Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+  } else {
+    modalLive.innerHTML = 'View Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>';
+  }
 }
 
 function openModal(i) {
