@@ -485,7 +485,7 @@ const PROJECTS = [
     desc: "A mobile-first Progressive Web Application built with service workers for offline caching, web app manifest for installability, and rapid load times across devices.",
     tags: ["PWA", "Service Worker", "JavaScript", "HTML5"],
     github: "https://github.com/itsanupamdev/codtech-task-4-progressive-web-application-pwa-",
-    live: "https://github.com/itsanupamdev/codtech-task-4-progressive-web-application-pwa-",
+    live: "https://itsanupamdev.github.io/codtech-task-4-progressive-web-application-pwa-/",
     variant: "v4"
   }
 ];
