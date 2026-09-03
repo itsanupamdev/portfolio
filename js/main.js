@@ -463,27 +463,27 @@ const PROJECTS = [
   },
   {
     num: "02",
-    title: "Modern Blogging Platform",
-    desc: "A clean, high-performance blogging application built with Next.js, React, and TypeScript. Features responsive design with Tailwind CSS, content authoring, and fast page loads.",
-    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    title: "DevFlow Tech Blog",
+    desc: "A high-performance developer blogging platform built with Next.js 15, React, TypeScript, and Tailwind CSS. Features curated technical essays, reading time estimates, category filters, and an interactive article reader modal.",
+    tags: ["Next.js 15", "React", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/itsanupamdev/-Development-project-2",
     live: "https://itsanupamdev.github.io/-Development-project-2/",
     variant: "v2"
   },
   {
     num: "03",
-    title: "Online Learning Platform",
-    desc: "Interactive educational web platform featuring modular course browsing, dynamic topic selection, interactive lesson interfaces, and a fully responsive layout.",
-    tags: ["JavaScript", "HTML5", "CSS3", "GitHub Pages"],
+    title: "LearnHub Learning Platform",
+    desc: "An interactive, feature-packed online learning platform featuring curated engineering courses, category filter tabs, in-browser search, student testimonials, and seamless instant enrollment modals.",
+    tags: ["JavaScript", "HTML5", "CSS3", "Design Systems"],
     github: "https://github.com/itsanupamdev/online-learning-platform",
     live: "https://itsanupamdev.github.io/online-learning-platform/",
     variant: "v3"
   },
   {
     num: "04",
-    title: "Progressive Web App (PWA)",
-    desc: "A mobile-first Progressive Web Application built with service workers for offline caching, web app manifest for installability, and rapid load times across devices.",
-    tags: ["PWA", "Service Worker", "JavaScript", "HTML5"],
+    title: "PulseCommerce PWA",
+    desc: "A mobile-first Progressive Web App store with service worker caching, instant offline browsing, an interactive sliding shopping cart drawer, and native add-to-homescreen installation.",
+    tags: ["PWA", "Service Worker", "JavaScript", "E-Commerce"],
     github: "https://github.com/itsanupamdev/codtech-task-4-progressive-web-application-pwa-",
     live: "https://itsanupamdev.github.io/codtech-task-4-progressive-web-application-pwa-/",
     variant: "v4"
