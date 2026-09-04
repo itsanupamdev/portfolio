@@ -20,14 +20,14 @@ links.forEach((link) => {
   });
 });
 
-const resumeNavBtn = document.querySelector(".nav-resume-btn");
-if (resumeNavBtn) {
-  resumeNavBtn.addEventListener("click", () => {
+const resumeNavBtns = document.querySelectorAll(".nav-resume-white-box");
+resumeNavBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
     navLinks.classList.remove("open");
     hamburger.classList.remove("open");
     hamburger.setAttribute("aria-expanded", "false");
   });
-}
+});
 
 const sections = document.querySelectorAll("section[id]");
 
