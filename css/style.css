@@ -183,19 +183,19 @@ body {
   list-style: none;
 }
 
-/* High-Contrast White Box Resume Button */
+/* High-Contrast White Box Resume Button - exact match to bottom button font */
 .nav-resume-white-box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 22px;
+  padding: 11px 24px;
   background-color: #ffffff;
   color: #0a0e17;
-  border-radius: 8px;
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
   border: 1px solid #ffffff;
@@ -205,17 +205,10 @@ body {
 }
 
 .nav-resume-white-box:hover {
-  background-color: #f1f5f9;
-  color: #000000;
+  background-color: #e8edf5;
+  color: #0a0e17;
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(255, 255, 255, 0.45);
-}
-
-.nav-resume-white-box svg {
-  width: 15px;
-  height: 15px;
-  stroke: #0a0e17;
-  stroke-width: 2.2px;
+  box-shadow: 0 8px 24px rgba(232, 237, 245, 0.35);
 }
 
 .mobile-resume-wrapper {
@@ -1051,8 +1044,10 @@ body {
   .mobile-resume-wrapper .nav-resume-white-box {
     width: 100%;
     justify-content: center;
-    padding: 13px 20px;
-    font-size: 0.8rem;
+    padding: 14px 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
   }
 
   .form-row {
